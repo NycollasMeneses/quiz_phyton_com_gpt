@@ -1,0 +1,38 @@
+echo "# quiz_phyton_com_gpt" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/NycollasMeneses/quiz_phyton_com_gpt.git
+git push -u origin main
+
+import openai
+
+openai.api_key = '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'
+
+def obter_resposta(pergunta):
+    prompt = "Pergunta: " + pergunta + "\nResposta:"
+    response = openai.Completion.create(
+        engine='text-davinci-003',
+        prompt=prompt,
+        max_tokens=100,
+        temperature=0.7,
+        top_p=1.0,
+        frequency_penalty=0.0,
+        presence_penalty=0.0,
+        n=1,
+        stop=None,
+        temperature=0.7
+    )
+
+    resposta = response.choices[0].text.strip()
+    return resposta
+
+# Obter pergunta do usuário
+pergunta = input("Faça uma pergunta: ")
+
+# Obter resposta do modelo
+resposta = obter_resposta(pergunta)
+
+# Exibir resposta
+print("Resposta: " + resposta)
